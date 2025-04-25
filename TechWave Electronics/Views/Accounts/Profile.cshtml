@@ -1,0 +1,362 @@
+﻿@model MyUser
+
+
+
+@{
+    ViewData["Title"] = "Profile " + User.Identity.Name;
+}
+
+<script src="~/js/JavaScript7.js" asp-append-version="true"></script>
+<style>
+    .custom-img {
+        width: 100px;
+        height: auto;
+    }
+
+    #splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+        #splash-screen img {
+            width: 150px; /* تعديل الحجم حسب الحاجة */
+            height: auto;
+        }
+
+</style>
+<div id="splash-screen">
+    <img src="~/images/Manager Pro.gif" alt="Loading..." />
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-2">
+                    @if (Model.ImagePath != null && Model.ImagePath.Length > 0)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImagePath)" class="rounded-circle card-img-top custom-img" />
+                    }
+                    else
+                    {
+                        <img src="~/images/Manager Pro.gif" class="rounded-circle card-img-top custom-img" />
+                    }
+                </div>
+                <div class="col-lg-6">
+                    <h1>
+                        E_mail:
+                        <a class="btn btn-primary" href="mailto:@Model.Email">
+                            <i class="fa-solid fa-envelope"></i> @User.Identity.Name
+                        </a>
+                    </h1>
+                    <h2>
+                        Phone Number:
+                        <a class="btn btn-primary" href="tel:@(Model.PhoneNumber ?? "غير متوفر")">
+                            <i class="fa-solid fa-phone"></i> @(Model.PhoneNumber ?? "غير متوفر")
+                        </a>
+                    </h2>
+                </div>
+                <div class="col-lg-4">
+                    <h2>
+                        Job Position:
+                        @foreach (var role in User.Claims.Where(c => c.Type == System.Security.Claims.ClaimTypes.Role))
+                        {
+                            @role.Value
+                        }
+                    </h2>
+                    <h2>
+                        <i class="fa-solid fa-calendar"></i> Birth Date:
+                        @(Model.BirthDate.HasValue ? Model.BirthDate.Value.ToString("yyyy-MM-dd") : "غير متوفر")
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-lg-4">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div style="position: fixed;" class="list-group">
+                            <a class="list-group-item list-group-item-action" id="hide">Hide</a>
+                            <a class="list-group-item list-group-item-action" id="show">Show</a>
+                            @if ( User.IsInRole("Administrators") || User.IsInRole("It") || User.IsInRole("It Management"))
+                            {
+                                <a class="list-group-item list-group-item-action" asp-controller="ManageRoles" asp-action="Index">Role Management</a>
+                                <a class="list-group-item list-group-item-action" asp-controller="Accounts" asp-action="Index">Accounts Management</a>
+                            }
+
+                            <a asp-action="EditPassword" asp-controller="Accounts" asp-route-email="@Model.Email" asp-route-id="@Model.usersId" class="list-group-item list-group-item-action">Password</a>
+                            <a asp-action="Edit" asp-controller="Accounts" asp-route-email="@Model.Email" asp-route-id="@ViewData["EncryptedId"]" class="list-group-item list-group-item-action">Edit</a>
+                            <a class="list-group-item list-group-item-action" asp-controller="Accounts" asp-action="Logout">Logout</a>
+                        </div>
+
+                        @if (ViewData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">@ViewData["SuccessMessage"]</div>
+                        }
+                    }
+                </div>
+                <div class="col-lg-7">
+                    @if (User.IsInRole("Sales") || User.IsInRole("Sales Manager") || User.IsInRole("Customer Service") || User.IsInRole("Management") || User.IsInRole("Administrators") || User.IsInRole("Customer Service Manager"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Sales" asp-action="Index">
+                                <i class="fa-solid fa-bag-shopping"></i> Sales
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Sales") || User.IsInRole("Sales Manager"))
+                        {
+                            <div id="sale" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="man" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager"))
+                        {
+                            <div id="Customer" class="toggleable"></div>
+                        }
+                        <hr />
+                        <h1 class="text-center">
+                            <a class="dropdown-item" asp-area="" asp-controller="Customers" asp-action="Index">
+                                <i class="fa-brands fa-teamspeak"></i> Customer
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager"))
+                        {
+                            <div id="content" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Sales") || User.IsInRole("Sales Manager"))
+                        {
+                            <div id="Sales" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="Management" class="toggleable"></div>
+                        }
+                        <hr />
+                        <h1 class="text-center">
+                            <a class="dropdown-item" asp-area="" asp-controller="Orders" asp-action="Index">
+                                <i class="fa-solid fa-shop"></i> Orders
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager"))
+                        {
+                            <div id="CustomerofOrder" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Sales") || User.IsInRole("Sales Manager"))
+                        {
+                            <div id="SalesofOrders" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementofOrders" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Finance") || User.IsInRole("Finance Manager") || User.IsInRole("Sales") || User.IsInRole("Sales Manager") || User.IsInRole("Customer Service") || User.IsInRole("Management") || User.IsInRole("Administrators") || User.IsInRole("Customer Service Manager"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Invoices" asp-action="Index">
+                                <i class="fa-solid fa-file-lines"></i> Invoices
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager"))
+                        {
+                            <div id="CustomerofInvoices" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Sales") || User.IsInRole("Sales Manager"))
+                        {
+                            <div id="salesofInvoices" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementofInvoices" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Finance") || User.IsInRole("Finance Manager"))
+                        {
+                            <div id="FinanceofInvoices" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Storekeeper") || User.IsInRole("Warehouse Manager") || User.IsInRole("Sales") || User.IsInRole("Sales Manager") || User.IsInRole("Customer Service") || User.IsInRole("Management") || User.IsInRole("Administrators") || User.IsInRole("Customer Service Manager"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="OrderDetails" asp-action="Index">
+                                <i class="fa-solid fa-cart-shopping"></i> Order Details
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Sales") || User.IsInRole("Sales Manager"))
+                        {
+                            <div id="SalesOrderDetails" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementOrderDetails" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Storekeeper") || User.IsInRole("Warehouse Manager"))
+                        {
+                            <div id="StorekeeperOrderDetails" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager"))
+                        {
+                            <div id="CustomerOrderDetails" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("HR") || User.IsInRole("HR Manager") || User.IsInRole("Management") || User.IsInRole("Administrators"))
+                    {
+                        <h1 class="text-center">
+                            <a class="dropdown-item" asp-area="" asp-controller="Departments" asp-action="Index">
+                                <i class="fa-solid fa-building"></i> Departments
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("HR") || User.IsInRole("HR Manager"))
+                        {
+                            <div id="HRDepartments" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="HRManagerDepartments" class="toggleable"></div>
+                        }
+                        <hr />
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Employees" asp-action="Index">
+                                <i class="fa-solid fa-users"></i> Employees
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("HR") || User.IsInRole("HR Manager"))
+                        {
+                            <div id="HREmployees" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="HRManagerEmployees" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Customer Service Manager") || User.IsInRole("Sales Manager") || User.IsInRole("Management") || User.IsInRole("Administrators"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Audiences" asp-action="Index">
+                                <i class="fa-solid fa-user-tie"></i> Audiences
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Customer Service Manager") || User.IsInRole("Sales Manager"))
+                        {
+                            <div id="CustomerAudiences" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementAudiences" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager") || User.IsInRole("Management") || User.IsInRole("Administrators"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Bookings" asp-action="Index">
+                                <i class="fa-solid fa-bell"></i> Booking
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Customer Service") || User.IsInRole("Customer Service Manager"))
+                        {
+                            <div id="CustomerBooking" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementBooking" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Finance") || User.IsInRole("Finance Manager") || User.IsInRole("Management") || User.IsInRole("Administrators"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Financials" asp-action="Index">
+                                <i class="fa-solid fa-money-bill"></i> Financials
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Finance") || User.IsInRole("Finance Manager"))
+                        {
+                            <div id="Financials" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="FinancialsManagement" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Storekeeper") || User.IsInRole("Warehouse Manager") || User.IsInRole("Management") || User.IsInRole("Administrators"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Products" asp-action="Index">
+                                <i class="fa-brands fa-product-hunt"></i> Products
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Storekeeper") || User.IsInRole("Warehouse Manager"))
+                        {
+                            <div id="StorekeeperProducts" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementProducts" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                    @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                    {
+                        <h1 class="text-center">
+                            <a class="list-group-item list-group-item-action" asp-area="" asp-controller="Menus" asp-action="Index">
+                                <i class="fa-solid fa-bars"></i> Menus
+                            </a>
+                        </h1>
+                        @if (User.IsInRole("Management") || User.IsInRole("Administrators"))
+                        {
+                            <div id="ManagementMenus" class="toggleable"></div>
+                        }
+                        @if (User.IsInRole("Sales"))
+                        {
+                            <div id="SalesMenus" class="toggleable"></div>
+                        }
+                        <hr />
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function () {
+        var toggleElements = jQuery(".toggleable");
+
+        jQuery("#hide").click(function () {
+            toggleElements.hide();
+        });
+
+        jQuery("#show").click(function () {
+            toggleElements.show();
+        });
+    });
+        document.addEventListener("DOMContentLoaded", function() {
+        // إخفاء الشاشة المؤقتة بعد 3 ثوانٍ (3000 مللي ثانية)
+        setTimeout(function() {
+            var splashScreen = document.getElementById('splash-screen');
+            splashScreen.style.transition = 'opacity 0.5s';
+            splashScreen.style.opacity = '0';
+            setTimeout(function() {
+                splashScreen.style.display = 'none';
+            }, 500);
+        }, 3000);
+    });
+</script>

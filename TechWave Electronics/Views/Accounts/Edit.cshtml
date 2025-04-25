@@ -1,0 +1,94 @@
+﻿@model MyUser
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center text-warning">Edit</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageFile" class="control-label"></label>
+                <input asp-for="ImageFile" type="file" class="form-control"/>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <label class="control-label">Current image:</label>
+                <br />
+                @if (Model.ImagePath != null)
+                {
+                    <img id="currentImage" src="data:image/jpeg;base64,@Convert.ToBase64String(Model.ImagePath)" class="rounded-circle card-img-top custom-img" style="max-width: 200px; max-height: 200px;" />
+                }
+               
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Country" class="control-label"></label>
+                <select id="country" asp-for="Country" class="form-control"></select>
+                <span asp-validation-for="Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" /> |
+                <a class="btn btn-primary" asp-action="Index">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script>
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+            var input = event.target;
+
+            if (input.files && input.files[0]) {
+                var file = input.files[0];
+
+                // التحقق من نوع الملف
+                if (!file.type.match('image.*')) {
+                    alert('يرجى اختيار ملف صورة صالح.');
+                    return;
+                }
+
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    var imgElement = document.getElementById('imagePreview');
+                    imgElement.src = e.target.result;
+                    imgElement.style.display = 'block';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

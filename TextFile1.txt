@@ -1,0 +1,81 @@
+هل تقصد تصميم جداول قاعدة بيانات (Database Tables) خاصة بإدارة المخزن (نظام إدارة المخزون)؟ إذا كان نعم، فإليك مجموعة كاملة من الجداول المقترحة لنظام إدارة المخزن، مع وصف لكل جدول:
+
+#### 2. **الأصناف (Items / Products)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| ItemId | int (PK) | معرف الصنف |
+| ItemName | nvarchar(200) | اسم الصنف |
+| Description | nvarchar(500) | وصف الصنف |
+| CategoryId | int (FK) | معرف التصنيف |
+| UnitPrice | decimal(18,2) | سعر الوحدة |
+| ReorderLevel | int | حد إعادة الطلب |
+
+---
+
+#### 4. **المخازن (Warehouses)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| WarehouseId | int (PK) | معرف المخزن |
+| WarehouseName | nvarchar(200) | اسم المخزن |
+| Location | nvarchar(300) | موقع المخزن |
+
+---
+
+#### 5. **المخزون (Inventory)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| InventoryId | int (PK) | معرف السجل |
+| ItemId | int (FK) | الصنف |
+| WarehouseId | int (FK) | المخزن |
+| Quantity | int | الكمية الحالية |
+
+---
+
+#### 6. **واردات المخزن (StockIn / Purchases)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| StockInId | int (PK) | معرف العملية |
+| ItemId | int (FK) | الصنف |
+| WarehouseId | int (FK) | المخزن |
+| Quantity | int | الكمية |
+| DateReceived | datetime | تاريخ الاستلام |
+| SupplierId | int (FK) | المورّد |
+
+---
+
+#### 7. **صادرات المخزن (StockOut / Issues)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| StockOutId | int (PK) | معرف العملية |
+| ItemId | int (FK) | الصنف |
+| WarehouseId | int (FK) | المخزن |
+| Quantity | int | الكمية |
+| DateIssued | datetime | تاريخ الصرف |
+| IssuedTo | nvarchar(200) | تم الصرف إلى |
+
+---
+
+#### 8. **الموردون (Suppliers)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| SupplierId | int (PK) | معرف المورد |
+| SupplierName | nvarchar(200) | اسم المورد |
+| ContactNumber | nvarchar(50) | رقم الاتصال |
+| Address | nvarchar(300) | العنوان |
+
+---
+
+#### 9. **سجل الحركات (Inventory Transactions / History)**
+| العمود | النوع | الوصف |
+|--------|-------|-------|
+| TransactionId | int (PK) | معرف الحركة |
+| ItemId | int (FK) | الصنف |
+| WarehouseId | int (FK) | المخزن |
+| QuantityChange | int | التغير في الكمية (موجب أو سالب) |
+| TransactionType | nvarchar(50) | نوع الحركة (وارد، صادر، جرد، تعديل) |
+| Date | datetime | التاريخ |
+| Notes | nvarchar(300) | ملاحظات |
+
+---
+
+هل ترغب أن أساعدك بتصميم العلاقات (ERD) أو أوامر SQL لإنشاء هذه الجداول؟

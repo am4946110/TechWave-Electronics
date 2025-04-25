@@ -1,0 +1,33 @@
+﻿@model TechWave_Electronics.Models.Job
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">Job</h1>
+
+<h2 class="text-center text-bg-success">Details</h2>
+
+
+<div>
+  
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.jobName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.jobName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BaseSalary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BaseSalary)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-outline-warning asp-action="Edit" asp-route-id="@ViewData["EncryptedId"]">Edit</a> |
+    <a class="btn btn-outline-success" asp-action="Index">Back to List</a>
+</div>

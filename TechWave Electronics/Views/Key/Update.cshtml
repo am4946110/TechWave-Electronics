@@ -1,0 +1,13 @@
+﻿@model string
+@{
+    ViewBag.Title = "Update Key";
+}
+<h2>Update Key</h2>
+<p>Current Key: @ViewBag.CurrentKey</p>
+<form asp-action="Update" method="post">
+    <div class="form-group">
+        <label for="newKey">New Key</label>
+        <input type="text" class="form-control" id="newKey" name="newKey" />
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>

@@ -1,0 +1,10 @@
+﻿@model byte[]
+
+@if (Model != null && Model.Length > 0)
+{
+    <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model)" class="rounded-pill" style="width:40px;" alt="User Image" />
+}
+else
+{
+    <i class="fa-solid fa-user-circle fa-2x"></i>
+}

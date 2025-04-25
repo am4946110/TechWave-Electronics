@@ -1,0 +1,58 @@
+﻿@model IEnumerable<MyUser>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="text-center" >User</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Register">Create New</a>
+    <a class="btn btn-primary" asp-controller="Device" asp-action="index">Device</a>
+    <a class="btn btn-primary" asp-controller="Device" asp-action="DeviceInfo">DeviceInfo</a>
+    <a class="btn btn-primary" asp-controller="Device" asp-action="ActivityLog">Activity Log</a>
+
+</p>
+<table id="audienceTable" class="table table-hover table-striped text-center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>Password</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    <a class="btn btn-primary" href="mailto:@item.Email">@Html.DisplayFor(modelItem => item.Email)</a>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-email="@item.Email" asp-route-id="@item.usersId" class="btn btn-warning">Edit</a>
+                </td>
+                 <td>
+                    <a asp-action="Delete" asp-route-id="@item.usersId" class="btn btn-danger">Delete</a>
+                </td>
+                <td>
+                    <a asp-action="EditPassword" asp-route-id="@item.usersId" class="btn btn-warning">Password</a>
+                </td>
+                <td>
+                    <a asp-action="Assign" asp-route-id="@item.usersId" class="btn btn-success">Assign Role</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<ul id="pagination" class="pagination"></ul>

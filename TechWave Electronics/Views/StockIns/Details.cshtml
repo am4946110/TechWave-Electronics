@@ -1,0 +1,50 @@
+﻿@model TechWave_Electronics.Models.StockIn
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">StockIn</h1>
+
+<h2 class="text-center text-bg-success">Details</h2>
+
+<div>
+    
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ItemId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ItemId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.WarehouseId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.WarehouseId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SupplierId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SupplierId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DateReceived)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DateReceived)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-outline-warning asp-action="Edit" asp-route-id="@ViewData["EncryptedId"]">Edit</a> |
+    <a class="btn btn-outline-success" asp-action="Index">Back to List</a>
+</div>

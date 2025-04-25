@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TechWave_Electronics.Models.Investment>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchaseDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PurchasePrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentValue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Portfolio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Security)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchasePrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CurrentValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Portfolio.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Security.Currency)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.InvestmentID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.InvestmentID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.InvestmentID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

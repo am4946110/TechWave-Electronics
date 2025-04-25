@@ -1,0 +1,25 @@
+﻿@model TechWave_Electronics.Models.Category
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 class="text-center">Category</h1>
+
+<h2 class="text-center text-bg-success">Details</h2>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a class="btn btn-outline-warning" asp-action="Edit" asp-route-id="@ViewData["EncryptedId"]">Edit</a> |
+    <a class="btn btn-outline-primary" asp-action="Index">Back to List</a>
+</div>

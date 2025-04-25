@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TechWave_Electronics</title>
+    <script type="importmap"></script>
+    <link rel="icon" type="image/x-icon" href="~/images/Manager Pro.gif" asp-append-version="true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Manager.styles.css" asp-append-version="true" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/js/JavaScript.js" asp-append-version="true"></script>
+    <script src="~/js/javascript1.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript5.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript6.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript10.js" asp-append-version="true"></script>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3 fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TechWave_Electronics</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle"  role="button" data-bs-toggle="dropdown">Production</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TblSuppliers" asp-action="Index">Suppliers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TblShippers" asp-action="Index">Shippers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TblProducts" asp-action="Index">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TblOrders" asp-action="Index">Orders</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TblOrderDetails" asp-action="Index">OrderDetails</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="TblCustomers" asp-action="Index">Customers</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Categories</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">Warehouse</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="ITems" asp-action="Index">ITems</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Warehouses" asp-action="Index">Warehouses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="StockOuts" asp-action="Index">StockOuts</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="StockIns" asp-action="Index">StockIns</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Inventories" asp-action="Index">Inventories</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Histories" asp-action="Index">Histories</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">HR</a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Departments" asp-action="Index">Departments</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Employees" asp-action="Index">Employees</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Jobs" asp-action="Index">Jobs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Attendances" asp-action="Index">Attendances</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Payrolls" asp-action="Index">Payrolls</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Leaves" asp-action="Index">Leaves</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex align-items-center">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="dropdown me-3">
+                            <button class="btn dropdown-toggle d-flex align-items-center gap-2" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            @using Microsoft.AspNetCore.Identity
+                            @inject SignInManager<MyUser> SignInManager
+                            @inject UserManager<MyUser> UserManager
+
+                                @if (SignInManager.IsSignedIn(User))
+                                {
+                                    var user = await UserManager.GetUserAsync(User);
+                                    var imagePath = user?.ImagePath;
+
+                                    if (imagePath != null && imagePath.Length > 0)
+                                    {
+                                        var base64Image = Convert.ToBase64String(imagePath);
+                                        <img src="data:image/jpeg;base64,@base64Image" class="rounded-pill profile-img" style="width:40px;border-color:blue;" alt="User Image" />
+                                    }
+                                    else
+                                    {
+                                        <i class="fa-solid fa-user-circle fa-2x"></i>
+                                    }
+                                }
+
+
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-controller="Accounts" asp-action="Profile">
+                                        <i class="fa-solid fa-circle-user"></i> Profile
+                                    </a>
+                                </li>
+                                @if (User.IsInRole("Administrators") || User.IsInRole("It") || User.IsInRole("It Management"))
+                                {
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="ManageRoles" asp-action="Index">
+                                            <i class="fa-solid fa-key"></i> Role Management
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Accounts" asp-action="Index">
+                                            <i class="fa-solid fa-users-cog"></i> Accounts Management
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <a class="btn btn-success" asp-controller="Accounts" asp-action="Logout">
+                            <i class="fa-solid fa-right-from-bracket"></i> Logout
+                        </a>
+                    }
+                    else
+                    {
+                        <a class="btn btn-success me-2" asp-controller="Accounts" asp-action="Login">
+                            <i class="fa-solid fa-sign-in-alt"></i> Login
+                        </a>
+                        <a class="btn btn-primary" asp-controller="Accounts" asp-action="Register">
+                            <i class="fa-solid fa-user-plus"></i> Register
+                        </a>
+                    }
+                </div>
+            </div>
+        </nav>
+    </header>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    @{
+        var currentYear = DateTime.Now.Year;
+        bool isLeapYear = DateTime.IsLeapYear(currentYear);
+        var leapYearMessage = isLeapYear;
+    }
+    <div class="mt-5 p-4  bg-light fixed-bottom text-white text-center">
+        <p class="text-dark">&copy; @currentYear - TechWave Electronics   </p>
+        <a class="btn btn-outline-success" asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="fa-solid fa-house"></i> Home
+        </a>
+    </div>
+    <script src="~/js/JavaScript8.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript8.js" asp-append-version="true"></script>
+    <script src="~/js/JavaScript9.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
